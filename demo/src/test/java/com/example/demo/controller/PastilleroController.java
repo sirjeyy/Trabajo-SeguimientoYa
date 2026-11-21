@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Pastillero;
 
-
+//Aqui empieza el controlador
 @RestController
 public class PastilleroController {
 
