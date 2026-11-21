@@ -16,17 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Controlador REST del historial de tomas de SeguimientoYa (RF3, RF5).
- * Datos simulados en memoria que reproducen los escenarios del proyecto:
- * toma a tiempo, tardía, olvido, pérdida de cobertura y confirmación manual.
- *
- * GET /tomas                     -> historial completo
- * GET /tomas/{id}                -> una toma
- * GET /tomas/paciente/{nombre}   -> historial de un paciente
- * GET /tomas/estado/{estado}     -> filtra por estado (a_tiempo, tardia, olvidada...)
- * GET /tomas/resumen             -> número de tomas por estado y % de adherencia
- */
+
 @RestController
 @RequestMapping("/tomas")
 public class TomaController {
@@ -36,22 +26,16 @@ public class TomaController {
     public TomaController() {
         LocalDate ayer = LocalDate.now().minusDays(1);
         tomas = List.of(
-                // Escenario: toma a tiempo (abre 10 min después)
                 Toma.de(1, "Carmen López", "Enalapril 10 mg", 1,
                         ayer.atTime(8, 0), ayer.atTime(8, 10), null, true),
-                // Escenario: toma tardía (abre 75 min después)
                 Toma.de(2, "Carmen López", "Metformina 850 mg", 2,
                         ayer.atTime(14, 0), ayer.atTime(15, 15), null, true),
-                // Escenario: olvido (sin evento y el pastillero comunica)
                 Toma.de(3, "Carmen López", "Atorvastatina 20 mg", 3,
                         ayer.atTime(22, 0), null, null, true),
-                // Confirmación manual por el cuidador (RF9)
                 Toma.de(4, "José Martín", "Omeprazol 20 mg", 1,
                         ayer.atTime(9, 0), null, "Ana Martín (familiar)", true),
-                // Escenario: pérdida de cobertura -> desconocida, no olvidada
                 Toma.de(5, "Rosa Fernández", "Sintrom 4 mg", 1,
                         ayer.atTime(20, 0), null, null, false),
-                // Toma de hoy dentro del margen -> pendiente
                 Toma.de(6, "José Martín", "Levotiroxina 50 mcg", 2,
                         LocalDateTime.now().minusMinutes(15), null, null, true)
         );
