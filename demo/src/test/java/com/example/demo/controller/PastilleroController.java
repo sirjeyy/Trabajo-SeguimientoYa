@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Pastillero;
 
-/**
- * Controlador que muestra la información del pastillero (RF8, CU4).
- * De momento devuelve datos de ejemplo, ya que el hardware se simula.
- */
+
 @RestController
 public class PastilleroController {
 
